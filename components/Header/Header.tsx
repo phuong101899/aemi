@@ -1,7 +1,7 @@
 import React from "react";
 
 import Image from "next/image";
-import {CircularButton} from "../../ui/buttons";
+import {CircularButton} from "ui/buttons";
 
 
 export const Header: React.FC = () => {
