@@ -52,6 +52,7 @@ export const Sidebar: React.FC = () => {
                     <Selector
                         dataSource={communities}
                         title="Danh mục"
+                        placeholder="Tìm kiếm danh mục"
                     />
                 </div>
             </nav>

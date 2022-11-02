@@ -11,7 +11,7 @@ export const Input: React.FC<Props> = ({trailing, ...props}) => {
             <div className="relative mt-1 flex items-center">
                 <input
                     type="text"
-                    className="block w-full border-be-gray rounded focus:border-primary sm:text-sm font-normal"
+                    className="block w-full border-be-gray rounded focus:border-primary sm:text-sm font-normal placeholder:text-sm"
                     {...props}
                 />
                 {
