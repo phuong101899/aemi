@@ -48,6 +48,7 @@ const questions = [
 
 
 export default function Home() {
+  console.log('Home');
   return (
       <Layout>
         <div className="px-4 sm:px-0">
