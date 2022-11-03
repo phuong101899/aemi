@@ -1,7 +1,7 @@
-import React from "react";
+import React, {InputHTMLAttributes} from "react";
 
 
-interface Props extends React.HTMLProps<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
     trailing?: JSX.Element,
 }
 
