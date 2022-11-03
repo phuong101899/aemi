@@ -1,0 +1,50 @@
+[
+  {
+    "category_code": "CLS",
+    "category_name": "Sữa rửa mặt"
+  },
+  {
+    "category_code": "EYE",
+    "category_name": "Kem mắt"
+  },
+  {
+    "category_code": "MOS",
+    "category_name": "Kem dưỡng"
+  },
+  {
+    "category_code": "MUR",
+    "category_name": "Tẩy trang"
+  },
+  {
+    "category_code": "SER",
+    "category_name": "Tinh chất"
+  },
+  {
+    "category_code": "TNR",
+    "category_name": "Nước cân bằng"
+  },
+  {
+    "category_code": "SUN",
+    "category_name": "Kem chống nắng"
+  },
+  {
+    "category_code": "FMS",
+    "category_name": "Mặt nạ"
+  },
+  {
+    "category_code": "LIP",
+    "category_name": "Dưỡng môi"
+  },
+  {
+    "category_code": "TMT",
+    "category_name": "Đặc trị"
+  },
+  {
+    "category_code": "BOD",
+    "category_name": "Dưỡng thể"
+  },
+  {
+    "category_code": "EXF",
+    "category_name": "Tẩy da chết"
+  }
+]
