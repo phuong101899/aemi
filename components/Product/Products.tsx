@@ -4,8 +4,13 @@ import _ from "lodash";
 import {ProductCard} from "ui/cards";
 import {Product} from "types";
 
-export const Products: React.FC = () => {
-    const [items] = useProducts();
+type Props = {
+    brand: string,
+    category: string,
+};
+
+export const Products: React.FC<Props> = ({brand, category}) => {
+    const [items] = useProducts({brand, category});
 
     return (
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">

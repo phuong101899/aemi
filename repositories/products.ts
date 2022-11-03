@@ -2,6 +2,12 @@ import {AxiosInstance, AxiosResponse} from "axios";
 import {Product} from "types";
 import {httpClient} from "./httpClient";
 
+
+type ProductFilter = {
+    brand?: string,
+    category?: string,
+};
+
 export class ProductsRepository {
     private client: AxiosInstance;
 
@@ -9,7 +15,11 @@ export class ProductsRepository {
         this.client = client ?? httpClient;
     }
 
-    getList(): Promise<AxiosResponse<Product[]>> {
-        return this.client.get('/products');
+    getList(filter?: ProductFilter): Promise<AxiosResponse<Product[]>> {
+        return this.client.get('/products', {
+            params: {
+                ...filter,
+            }
+        });
     }
 }
