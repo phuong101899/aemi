@@ -14,6 +14,7 @@ type Props = {
     supplierName: string,
     originalPrice: string,
     priceCurrency: string,
+    officialStore: boolean,
 };
 
 export const ProductCard: React.FC<Props> = (props) => {
@@ -23,13 +24,24 @@ export const ProductCard: React.FC<Props> = (props) => {
     return (
         <>
             <a href={props.href} className="group text-sm">
-                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t bg-gray-100 group-hover:opacity-75">
+                <div className="relative aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t bg-gray-100 group-hover:opacity-75">
                     <img
                         src={props.imageSrc}
                         alt={props.imageAlt}
                         className="h-full w-full object-cover object-center"
                         style={{aspectRatio: 270/255}}
                     />
+                    {
+                        props.officialStore && (
+                            <Image
+                                src={require('./assets/official-store.svg')}
+                                alt="official"
+                                width={30}
+                                height={26}
+                                className="absolute top-0"
+                            />
+                        )
+                    }
                 </div>
                 <div className="px-4">
                     <div className="mt-2 text-base text-primary font-semibold">{props.name}</div>

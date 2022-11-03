@@ -23,6 +23,7 @@ export const Products: React.FC = () => {
                         supplierName={product.supplier_name}
                         originalPrice={product.original_price}
                         priceCurrency={product.price_currency}
+                        officialStore={product.official_store}
                     />
                 ))
             }
