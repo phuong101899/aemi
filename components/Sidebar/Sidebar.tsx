@@ -2,6 +2,7 @@ import React from "react";
 import {Categories} from "../Category";
 import {Brands} from "../Brand";
 import {useRouter} from "next/router";
+import _ from "lodash";
 
 
 export const Sidebar: React.FC = () => {
@@ -12,10 +13,17 @@ export const Sidebar: React.FC = () => {
         let query = new URLSearchParams(location.search);
 
         router.push('/', {
-            query: {
-                ...Object.fromEntries(query),
-                [filter.key]: filter.value,
-            },
+            query: _.mergeWith(
+                Object.fromEntries(query),
+                {[filter.key]: filter.value},
+                (objValue, srcValue) => {
+                    let values = _.split(objValue, ',');
+                    return _.join(_.uniq(_.compact([
+                        ...values,
+                        srcValue
+                    ])), ',');
+                },
+            ),
         });
     }
 

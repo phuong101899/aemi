@@ -15,13 +15,13 @@ export default function handler(
 
     if(brand) {
         result = _.filter(result, (item: Product) => {
-            return item.brand_code === brand;
+            return _.includes(_.split(brand as string, ','), item.brand_code);
         });
     }
 
     if(category) {
         result = _.filter(result, (item: Product) => {
-            return item.category_code === category;
+            return _.includes(_.split(category as string, ','), item.category_code);
         });
     }
 

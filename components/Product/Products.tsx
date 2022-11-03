@@ -127,6 +127,14 @@ const FilterTags: React.FC<iFilterTags> = ({brand, category}) => {
             return item !== code;
         });
 
+
+        filters = _.mapValues(filters, (item) => {
+            let values = _.split(item, ',');
+
+            values = _.filter(values, item => item !== code);
+            return _.join(_.uniq(values), ',');
+        });
+
         router.push('/', {
             query: {
                 ...filters,
