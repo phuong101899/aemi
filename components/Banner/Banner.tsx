@@ -14,7 +14,7 @@ export const Banner = () => {
             <source media="(min-width: 1000px)" srcSet={w1000.src} />
             <source media="(min-width: 863px)" srcSet={w863.src} />
             <source media="(min-width: 767px)" srcSet={w767.src} />
-            <Image src={w767} alt="banner" />
+            <Image src={w863} alt="banner" />
         </picture>
     );
 }
