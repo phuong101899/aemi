@@ -2,12 +2,9 @@ import React from "react";
 import {useProducts} from "./hooks";
 import _ from "lodash";
 import {ProductCard} from "ui/cards";
-import {Brand, Category, Product} from "types";
-import {FilterTag} from "ui/tags/FilterTag";
-import {Tags} from "../../ui/tags";
-import {useRouter} from "next/router";
-import {useCategories} from "../Category";
-import {useBrands} from "../Brand";
+import {Product} from "types";
+
+import {FilterTags} from "./Filters";
 
 type Props = {
     brand: string,
@@ -18,11 +15,9 @@ export const Products: React.FC<Props> = ({brand, category}) => {
     const [items] = useProducts({brand, category});
 
     return (
-        <>
-            <div className="mb-4">
-                <FilterTags brand={brand} category={category} />
-            </div>
-            <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+        <div className="px-4 lg:px-0 space-y-4">
+            <FilterTags brand={brand} category={category} />
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-3 lg:gap-8">
                 {
                     _.map(items, (product: Product) => (
                         <ProductCard
@@ -42,114 +37,6 @@ export const Products: React.FC<Props> = ({brand, category}) => {
                     ))
                 }
             </div>
-        </>
+        </div>
     );
 };
-
-
-type Filter = {
-    label: string,
-    code: string,
-};
-
-interface iFilterTags {
-    brand: string,
-    category: string,
-}
-
-const FilterTags: React.FC<iFilterTags> = ({brand, category}) => {
-
-    const router = useRouter();
-    const [categoriesData] = useCategories();
-    const [brandsData] = useBrands();
-
-    const getCategoryLabel = (code: string): string => {
-        let item = _.find(categoriesData, (item: Category) => {
-            return item.category_code === code;
-        })
-
-        return _.get(item, 'category_name', '');
-    };
-
-    const getBrandLabel = (code: string): string => {
-        let item = _.find(brandsData, (item: Brand) => {
-            return item.brand_code === code;
-        })
-
-        return _.get(item, 'brand_name', '');
-    };
-
-    const getBrands = (): Filter[] => {
-        let brands = _.split(brand, ',');
-
-        return _.map(_.compact(brands), (item) => {
-            return {
-                label: getBrandLabel(item),
-                code: item,
-            };
-        });
-    };
-
-    const getCategories = (): Filter[] => {
-        let categories = _.split(category, ',');
-
-        return _.map(_.compact(categories), (item: string) => {
-            return {
-                label: getCategoryLabel(item),
-                code: item,
-            };
-        });
-    };
-
-    const getTags = (): Filter[]  => {
-        let result: Filter[] = [];
-        if(brand) {
-            result = [
-                ...result,
-                ...getBrands(),
-            ];
-        }
-
-        if(category) {
-            result = [
-                ...result,
-                ...getCategories(),
-            ];
-        }
-
-        return result;
-    };
-
-    const onClose = (code: string) => {
-        let query = new URLSearchParams(location.search);
-
-        let filters = _.pickBy(Object.fromEntries(query), (item) => {
-            return item !== code;
-        });
-
-
-        filters = _.mapValues(filters, (item) => {
-            let values = _.split(item, ',');
-
-            values = _.filter(values, item => item !== code);
-            return _.join(_.uniq(values), ',');
-        });
-
-        router.push('/', {
-            query: {
-                ...filters,
-            },
-        });
-    }
-
-
-    return (
-        <Tags>
-            {
-                _.map(getTags(), (item) => (
-                    <FilterTag key={item.code} label={item.label} onClose={() => onClose(item.code)} />
-                ))
-            }
-        </Tags>
-    );
-}

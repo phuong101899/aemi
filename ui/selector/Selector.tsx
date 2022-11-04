@@ -30,14 +30,16 @@ export const Selector: React.FC<Props> = ({title, dataSource, placeholder, maxHe
             <p className="px-3 text-[22px] font-medium text-secondary font-[700]">
                 {title}
             </p>
-            <Input
-                trailing={
-                    <Image src={require('ui/icons/assets/search.svg')} alt="search icon" />
-                }
-                placeholder={placeholder}
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-            />
+            <div className="px-3">
+                <Input
+                    trailing={
+                        <Image src={require('ui/icons/assets/search.svg')} alt="search icon" />
+                    }
+                    placeholder={placeholder}
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
+            </div>
             <div className="mt-4" style={{maxHeight, overflowY: "auto"}}>
                 {getList(keyword).map((item) => (
                     <span

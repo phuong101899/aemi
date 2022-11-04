@@ -6,14 +6,16 @@ import {Category} from "types";
 
 type Props = {
     onChange: (code: string) => void,
+    maxHeight?: number,
 };
 
-export const Categories: React.FC<Props> = ({onChange}) => {
+export const Categories: React.FC<Props> = ({onChange, maxHeight}) => {
     const [items] = useCategories();
     return (
         <Selector
             dataSource={_.map(items, (item: Category) => ({name: item.category_name, code: item.category_code}))}
             onChange={onChange}
+            maxHeight={maxHeight}
             title="Danh mục"
             placeholder="Tìm kiếm danh mục"
         />

@@ -24,6 +24,8 @@ export const Sidebar: React.FC = () => {
                     ])), ',');
                 },
             ),
+        }, {
+            scroll: false,
         });
     }
 

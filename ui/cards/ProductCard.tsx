@@ -44,13 +44,13 @@ export const ProductCard: React.FC<Props> = (props) => {
                     }
                 </div>
                 <div className="px-4">
-                    <div className="mt-2 text-base text-primary font-semibold">{props.name}</div>
-                    <div className="mt-2 mb-4 text-sm text-black">{props.description}</div>
+                    <div className="mt-2 text-xs lg:text-base text-primary font-semibold">{props.name}</div>
+                    <div className="mt-2 mb-4 text-xs lg:text-sm text-black">{props.description}</div>
                     <Tags>
                         <Tag label={props.categoryName} />
                         <Tag label={props.size} />
                     </Tags>
-                    <div className="mt-4 flex justify-between text-xs">
+                    <div className="mt-4 flex justify-between text-[10px] lg:text-xs">
                         <div className="flex gap-2">
                             <Image src={require('./assets/shop-icon.svg')} alt="icon" width={16} height={16} />
                             <span className="text-[#101112]">{props.supplierName}</span>
@@ -58,7 +58,7 @@ export const ProductCard: React.FC<Props> = (props) => {
                         <span className="text-[#A1A5AB]">Còn {numberPretty(Number(props.price))}</span>
                     </div>
                     <div className="flex justify-between mt-4">
-                        <div className="text-primary font-semibold text-lg">
+                        <div className="text-primary font-[500] lg:font-semibold text-base lg:text-lg">
                             {numberPretty(Number(props.originalPrice))}{props.priceCurrency}
                         </div>
                         <div className="text-white bg-[#D81D1D] flex items-center p-1 rounded text-[10px]">
