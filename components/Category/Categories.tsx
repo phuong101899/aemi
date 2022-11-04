@@ -7,13 +7,20 @@ import {Category} from "types";
 type Props = {
     onChange: (code: string) => void,
     maxHeight?: number,
+    selected?: string[],
 };
 
-export const Categories: React.FC<Props> = ({onChange, maxHeight}) => {
+export const Categories: React.FC<Props> = ({onChange, maxHeight, selected = []}) => {
     const [items] = useCategories();
     return (
         <Selector
-            dataSource={_.map(items, (item: Category) => ({name: item.category_name, code: item.category_code}))}
+            dataSource={_.map(items, (item: Category) => {
+                return {
+                    name: item.category_name,
+                    code: item.category_code,
+                    isActivated: _.includes(selected, item.category_code)
+                };
+            })}
             onChange={onChange}
             maxHeight={maxHeight}
             title="Danh mục"

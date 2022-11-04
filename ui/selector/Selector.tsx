@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import {Input} from "../inputs";
 import Image from "next/image";
 import _ from "lodash";
+import classNames from "classnames";
 
 type dataSourceItem = {
     name: string,
     code: string,
+    isActivated?: boolean,
 };
 
 type Props = {
@@ -40,12 +42,16 @@ export const Selector: React.FC<Props> = ({title, dataSource, placeholder, maxHe
                     onChange={(e) => setKeyword(e.target.value)}
                 />
             </div>
-            <div className="mt-4" style={{maxHeight, overflowY: "auto"}}>
+            <div className="mt-4 space-y-4" style={{maxHeight, overflowY: "auto"}}>
                 {getList(keyword).map((item) => (
                     <span
                         key={item.name}
                         onClick={() => onChange(item.code)}
-                        className="group flex items-center rounded-md px-3 py-2 text-base text-secondary hover:bg-gray-50"
+                        className={classNames('group flex items-center rounded-md px-3 text-base hover:bg-gray-50', {
+                            "bg-[#F7F9FD]": item.isActivated,
+                            "text-primary": item.isActivated,
+                            "text-secondary": item.isActivated === false,
+                        })}
                     >
                         <span className="truncate">{item.name}</span>
                     </span>

@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {Categories, useCategories} from "../Category";
 import {Brands, useBrands} from "../Brand";
@@ -119,13 +119,15 @@ export const FilterTags: React.FC<iFilterTags> = ({brand, category}) => {
                     }
                 />
             </div>
-            <Tags>
-                {
-                    _.map(getTags(), (item) => (
-                        <FilterTag key={item.code} label={item.label} onClose={() => onClose(item.code)} />
-                    ))
-                }
-            </Tags>
+            <div className="hidden lg:block">
+                <Tags>
+                    {
+                        _.map(getTags(), (item) => (
+                            <FilterTag key={item.code} label={item.label} onClose={() => onClose(item.code)} />
+                        ))
+                    }
+                </Tags>
+            </div>
         </div>
     );
 }
@@ -136,8 +138,73 @@ interface iFiltersModal {
 
 export const FiltersModal: React.FC<iFiltersModal> = ({trigger}) => {
     let [isOpen, setIsOpen] = useState(false);
+    const [brands, addBrands] = useState<string[]>([]);
+    const [categories, addCategories] = useState<string[]>([]);
+    const router = useRouter();
 
-    const onPicked = (filter: {key: string, value: string}) => {};
+    useEffect(() => {
+        let queries = Object.fromEntries(new URLSearchParams(location.search));
+        let _brands = _.get(queries, 'brand');
+        if(_brands) {
+            addBrands(
+                _.split(_brands, ',')
+            )
+        }
+
+        let _categories = _.get(queries, 'category');
+        if(_categories) {
+            addCategories(
+                _.split(_categories, ',')
+            )
+        }
+
+    }, [router]);
+
+    const onPicked = (filter: {key: string, value: string}) => {
+        if(filter.key === "brand") {
+            if(_.includes(brands, filter.value)) {
+                let _brands = _.filter(brands, item => item !== filter.value);
+                addBrands([..._brands]);
+            } else {
+                addBrands([
+                    ...brands,
+                    filter.value,
+                ]);
+            }
+        }
+        else if(filter.key === "category") {
+            if(_.includes(categories, filter.value)) {
+                let _categories = _.filter(categories, item => item !== filter.value);
+                addCategories([..._categories]);
+            } else {
+                addCategories([
+                    ...categories,
+                    filter.value,
+                ]);
+            }
+        }
+    };
+
+    const clear = () => {
+        addBrands([]);
+        addCategories([]);
+    };
+
+    const apply = () => {
+
+        setIsOpen(false);
+
+        let query = {};
+        _.set(query, 'brand', _.join(brands, ','));
+
+        _.set(query, 'category', _.join(categories, ','));
+
+        router.push('/', {
+            query: _.omitBy(query, _.isEmpty),
+        });
+
+    };
+
 
     return (
         <>
@@ -188,18 +255,23 @@ export const FiltersModal: React.FC<iFiltersModal> = ({trigger}) => {
                                                     <Brands
                                                         onChange={(code) => onPicked({key: 'brand', value: code})}
                                                         maxHeight={190}
+                                                        selected={brands}
                                                     />
                                                     <Categories
                                                         onChange={(code) => onPicked({key: 'category', value: code})}
                                                         maxHeight={190}
+                                                        selected={categories}
                                                     />
                                                 </div>
                                             </div>
                                         <div className="p-3 gap-5 flex">
-                                            <OutlineButton className="w-2/4">
+                                            <OutlineButton className="w-2/4" onClick={clear}>
                                                 XOÁ TẤT CẢ
                                             </OutlineButton>
-                                            <PrimaryButton className="w-2/4">
+                                            <PrimaryButton
+                                                className="w-2/4"
+                                                onClick={apply}
+                                            >
                                                 ÁP DỤNG
                                             </PrimaryButton>
                                         </div>
