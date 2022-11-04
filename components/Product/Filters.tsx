@@ -171,7 +171,7 @@ export const FiltersModal: React.FC<iFiltersModal> = ({trigger}) => {
                                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="transform bg-white shadow-xl transition-all w-full h-screen">
+                                <Dialog.Panel className="transform bg-white shadow-xl transition-all w-full h-screen flex flex-col">
                                     <div className="bg-primary text-white flex px-6 py-4">
                                         <Image
                                             onClick={() => setIsOpen(false)}
@@ -182,20 +182,20 @@ export const FiltersModal: React.FC<iFiltersModal> = ({trigger}) => {
                                             BỘ LỌC
                                         </div>
                                     </div>
-                                    <div className="flex flex-col justify-between">
-                                        <div className="h-full py-5 overflow-y-auto">
-                                            <div className="space-y-4">
-                                                <Brands
-                                                    onChange={(code) => onPicked({key: 'brand', value: code})}
-                                                    maxHeight={190}
-                                                />
-                                                <Categories
-                                                    onChange={(code) => onPicked({key: 'category', value: code})}
-                                                    maxHeight={190}
-                                                />
+                                    <div className="flex flex-col justify-between h-full">
+                                            <div className="h-full py-5 overflow-y-auto">
+                                                <div className="space-y-4">
+                                                    <Brands
+                                                        onChange={(code) => onPicked({key: 'brand', value: code})}
+                                                        maxHeight={190}
+                                                    />
+                                                    <Categories
+                                                        onChange={(code) => onPicked({key: 'category', value: code})}
+                                                        maxHeight={190}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="px-3 gap-5 flex">
+                                        <div className="p-3 gap-5 flex">
                                             <OutlineButton className="w-2/4">
                                                 XOÁ TẤT CẢ
                                             </OutlineButton>
